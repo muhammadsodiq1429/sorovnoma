@@ -56,10 +56,14 @@ export class AdminService {
     return { success: true, updatedAdminId: id };
   }
 
+  async (){}
+
   async remove(id: number) {
     const admin = await this.findOne(id);
     admin.admin.destroy();
 
     return { success: true, deletedAdminId: id };
   }
+
+  
 }

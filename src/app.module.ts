@@ -3,12 +3,13 @@ import { AdminModule } from "./admin/admin.module";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { Admin } from "./admin/models/admin.model";
 import { ConfigModule } from "@nestjs/config";
-import { AuthModule } from "./admin/auth/auth.module";
+import { AuthModule } from "./auth/auth.module";
+import { JwtModule } from "@nestjs/jwt";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: ".env", isGlobal: true }),
-    AdminModule,
+    JwtModule.register({ global: true }),
     SequelizeModule.forRoot({
       dialect: "postgres",
       host: process.env.PG_HOST,
@@ -21,6 +22,7 @@ import { AuthModule } from "./admin/auth/auth.module";
       sync: { alter: true },
       logging: false,
     }),
+    AdminModule,
     AuthModule,
   ],
   controllers: [],
